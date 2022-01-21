@@ -8,17 +8,17 @@ import sys
 
 def main():
 
-    pygame.init()
-    user = ctypes.windll.user
-    user.SetProcessDPIAware()
-    WIDTH, HEIGTH = user.GetSystemMetrics(0), user.GetSystemMetrics(1)
+    user32 = ctypes.windll.user32
+    user32.SetProcessDPIAware()
+    WIDTH, HEIGTH = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
     window = pygame.display.set_mode((WIDTH, HEIGTH))
     clock = pygame.time.Clock()
 
     class Fondo(sprite.Sprite):
         def __init__(self):
             sprite.Sprite.__init__(self)
-            self.spriteSheet = pygame.image.load('sprite/fondo.png')
+            self.spriteSheet = pygame.image.load('sprites/Fondo.png').convert_alpha()
+            self.image = pygame.transform.scale(self.spriteSheet.subsurface((0,0,256,64)),(WIDTH-1, HEIGTH-1))
             self.rect = self.image.get_rect()
             self.rect.center = (WIDTH/2, HEIGTH/2)
 
@@ -33,11 +33,13 @@ def main():
                 self.current_frame = 0 
             else:
                 self.current_frame += 3*dt
+            print(int(self.current_frame)*self.frame_width)
+            self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,64,64)),(240,240))
     
 
     wallpaper = Fondo()
     group_sprites = pygame.sprite.GroupSingle()
-    group_sprites.add(Fondo)
+    group_sprites.add(wallpaper)
 
     while True:
 
@@ -49,7 +51,7 @@ def main():
                 pygame.quit()
                 sys.exit()   
 
-        window.fill(0, 0, 0)
+        window.fill((0, 0, 0))
         group_sprites.update(dt, window)
         group_sprites.draw(window)
         pygame.display.flip() 
