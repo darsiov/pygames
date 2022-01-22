@@ -64,8 +64,7 @@ def main():
         group_sprites.draw(window)
         pygame.display.flip()
         c += 1
-        if 15 <= c:
-            break
+
 
 
     while True:
