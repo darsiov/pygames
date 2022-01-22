@@ -54,16 +54,16 @@ def main():
         group_sprites.draw(window)
         pygame.display.flip()
 
-        if draw_point_w > 0 and draw_point_h >= 0:
-            draw_point_w -= SPRITE_SIZE
+        # if draw_point_w > 0 and draw_point_h >= 0:
+        #     draw_point_w -= SPRITE_SIZE
 
-        elif draw_point_w == 0 and draw_point_h > 0:
-            draw_point_w = 1200
-            draw_point_h -= SPRITE_SIZE
+        # elif draw_point_w == 0 and draw_point_h > 0:
+        #     draw_point_w = 1200
+        #     draw_point_h -= SPRITE_SIZE
 
-        else:
-            draw_point_w = 1200
-            draw_point_h = 1200
+        # else:
+        #     draw_point_w = 1200
+        #     draw_point_h = 1200
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
