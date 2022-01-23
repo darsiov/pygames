@@ -1,6 +1,4 @@
-from email.mime import image
-from tkinter import image_names
-from traceback import print_tb
+from tokenize import group
 from pygame import sprite   #Archivo especifico para animar los sprites
 from pygame.locals import * #Gestion de eventos
 
@@ -17,7 +15,7 @@ def main():
     width_sprite, height_sprite = 256, 64 #Tamaño del png completo
     wallpaper = []  
     c = 0
-    group_sprites = pygame.sprite.GroupSingle()
+    group_sprites = []
     window = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN)) #Creación de la ventana que mostrara nuestro juego
     clock = pygame.time.Clock() #Definición del reloj interno del juego
     dt = clock.tick(30) /100 #Definición de los FPS del surface
@@ -47,7 +45,6 @@ def main():
          
             self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
-
     while True:
         if draw_point_w < 600 and draw_point_h <= 600:
             draw_point_w += SPRITE_SIZE
@@ -58,17 +55,46 @@ def main():
             draw_point_w = 0
             draw_point_h = 0
         wallpaper.append(Fondo())
-        group_sprites.add(wallpaper[c])
-        group_sprites.update(dt, window)
-        window.fill((0, 0, 0))
-        group_sprites.draw(window)
-        pygame.display.flip()
+        group_sprites.append(pygame.sprite.GroupSingle())
         c += 1
+        if c > 15:
+            break
+
+    w1 = wallpaper[0]
+    w2 = wallpaper[1]
+    w3 = wallpaper[2]
+    w4 = wallpaper[3]
+    w5 = wallpaper[4]
+    w6 = wallpaper[5]
+    w7 = wallpaper[6]
+    w8 = wallpaper[7]
+    w9 = wallpaper[8]
+    w10 = wallpaper[9]
+    w11 = wallpaper[10]
+    w12 = wallpaper[11]
+    w13 = wallpaper[12]
+    w14 = wallpaper[13]
+    w15 = wallpaper[14]
+    w16 = wallpaper[15]
 
 
-
-    while True:
-
+    while True: 
+        group_sprites.add(w1)
+        group_sprites.add(w2)
+        group_sprites.add(w3)
+        group_sprites.add(w4)
+        group_sprites.add(w5)
+        group_sprites.add(w6)
+        group_sprites.add(w7)
+        group_sprites.add(w8)
+        group_sprites.add(w9)
+        group_sprites.add(w10)
+        group_sprites.add(w11)
+        group_sprites.add(w12)
+        group_sprites.add(w13)
+        group_sprites.add(w14)
+        group_sprites.add(w15)
+        group_sprites.add(w16)
         group_sprites.update(dt, window)
         window.fill((0, 0, 0))
         group_sprites.draw(window)
