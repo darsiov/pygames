@@ -17,7 +17,7 @@ def main():
     wall_blocks = pygame.sprite.Group()#Grupo de sprites del fondo
     window = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN)) #Creación de la ventana que mostrara nuestro juego
     clock = pygame.time.Clock() #Definición del reloj interno del juego
-    dt = clock.tick(10) /100 #Definición de los FPS del surface
+    dt = clock.tick(30) /100 #Definición de los FPS del surface
     
     class Fondo(sprite.Sprite):#Objeto que contendra el fondo
         def __init__(self):#Función que llevará la extracción , carga y conversión del sprite
