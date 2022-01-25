@@ -22,4 +22,4 @@ Ahora chequeamos el contenido de la carpeta con el comando `ls` y ejecutamos el 
 
 [![v0.1](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")
 
-Agradezco cualquier recomendación u aporte de tu parte querido lector@ 😃
+Agradezco cualquier recomendación u aporte de tu parte querid@ lector@ 😃
