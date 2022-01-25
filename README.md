@@ -1,25 +1,26 @@
 # Pygames 🕹
-Este es el recopilatorio y evidencia de mi progreso con Python usando el set de módulos Pygame.
-Para más información de como programar con el set consulta la [Página oficial](https://www.pygame.org/ "Página oficial")
-Para ejecutar cada una de las versiones de este proyecto ten en cuenta los siguientes pasos.
+This is my recopilatory of versions and progress of my first game made with the module set Pygame.
+For more information about how to program with the set Pygame check the [official website](https://www.pygame.org/ "official website").
+
+To execute all the versions of the project please follow this process.
 ### 1. Install Pygame Set
-Abre la consola que usualmente usas para ejecutar tus proyectos de Python como Bash, PowerShell, etc.
-Asegurate de estar en el home o usa el siguiente comando para llegar rapidamente:
+Open the console that you usualy use to execute your Python projects like Bash, Powershell, etc. 
+
+Check that you're in the home, if you aren't go with the next command:
 
 `cd ~`
 
-Una vez en el home solo tienes que ejecutar el siguiente comando y esperar a que se instale nuestro set.
+Now you only need install the set with this command:
 
 `pip install Pygame`
 ### 2. Download Versions
 [![Downlowad](https://github.com/darsiov/pygames/blob/main/capturas/Descargar.png "Downlowad")](https://github.com/darsiov/pygames/blob/main/capturas/Descargar.png "Downlowad")
 
-Descargamos el archivo .zip de la versión que quieras elegir probar, lo descomprimimos en el home y ahora solo nos quedará abrir la carpeta **pygames-*número de versión*** en la consola.
+Dowload the file .zip of the version that you want prove, you have to unzip the file in the home and now you only need open the directory  **pygames-*version number*/** in the console.
 ### 3. Execute
-Ahora chequeamos el contenido de la carpeta con el comando `ls` y ejecutamos el archivo con la extensión .py, por ejemplo:
-
+To finish you have to check the directory with the command `ls` and execute the file with the extension .py, for example:
 `py first_game.py`.
 
 [![v0.1](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")
 
-Agradezco cualquier recomendación u aporte de tu parte querid@ lector@ 😃
+I appreciate any comment or recomendation dear reader 😃
