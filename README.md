@@ -12,7 +12,7 @@ Una vez en el home solo tienes que ejecutar el siguiente comando y esperar a que
 
 `pip install Pygame`
 ### 2. Download Versions
-[![Downlowad](https://imgur.com/fTliwqi "Downlowad")](http://i.imgur.com/fTliwqi.png "Downlowad")
+[![Downlowad](https://github.com/darsiov/pygames/blob/main/capturas/Descargar.png "Downlowad")](https://github.com/darsiov/pygames/blob/main/capturas/Descargar.png "Downlowad")
 
 Descargamos el archivo .zip de la versión que quieras elegir probar, lo descomprimimos en el home y ahora solo nos quedará abrir la carpeta **pygames-*número de versión*** en la consola.
 ### 3. Execute
@@ -20,6 +20,6 @@ Ahora chequeamos el contenido de la carpeta con el comando `ls` y ejecutamos el 
 
 `py first_game.py`.
 
-[![v0.1](https://imgur.com/UfsYca9 "v0.1")](https://i.imgur.com/UfsYca9.gifv "v0.1")
+[![v0.1](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")
 
 Agradezco cualquier recomendación u aporte de tu parte querido lector@ 😃
