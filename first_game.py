@@ -91,28 +91,54 @@ class Character(sprite.Sprite):#Objeto que contendra el fondo
 
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
+    def movement(self, d):
+        direction = d
+        if direction == 0 and self.rect.centery >= 0:
+            self.rect.centery -= MOVE
+
+        elif direction == 1 and self.rect.centerx < 625:
+            self.rect.centerx += MOVE
+
+        elif direction == 2 and self.rect.centerx > -25:
+            self.rect.centerx -= MOVE
+
+        elif direction == 3 and self.rect.centery < 600:
+            self.rect.centery += MOVE
+
+        else:
+            pass
+
 
 
 def main():
     char = Character()
     
     while True: 
-
+        
         for event in pygame.event.get():#Ciclo para detectar cualquier evento hecho por el usuario
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    print('Up')
-                if event.key == pygame.K_d:
-                    print('Right')
-                if event.key == pygame.K_a:
-                    print('Left')
-                if event.key == pygame.K_s:
-                    print('Down')    
+
+            keys = pygame.key.get_pressed()
+
+            if keys[K_w]:
+                d = 0
+            elif keys[K_d]:
+                d = 1
+            elif keys[K_a]:
+                d = 2
+            elif keys[K_s]:   
+                d = 3 
+            elif keys[K_ESCAPE]:
+                pygame.quit()
+                sys.exit()
+            else:
+                    d = -1
                     
-        character.add(char)
+            char.movement(d)
+
+        character.add(char)           
         wall_blocks.add(wallpaper)#Agregado de la lista al grupo de sprite
         wall_blocks.update(dt, window)#Invocación de la función del refresco de todos los sprites
         character.update(dt, window)
