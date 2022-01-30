@@ -21,6 +21,6 @@ Dowload the file .zip of the version that you want prove, you have to unzip the 
 To finish you have to check the directory with the command `ls` and execute the file with the extension .py, for example:
 `py first_game.py`.
 
-[![v0.1](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")
+[![v0.1](https://github.com/darsiov/pygames/blob/main/capturas/v_actual.gif "v0.1")](https://github.com/darsiov/pygames/blob/main/capturas/v0.1.gif "v0.1")
 
 I appreciate any comment or recomendation dear reader 😃
