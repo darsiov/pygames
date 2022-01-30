@@ -135,7 +135,7 @@ def main():
                 sys.exit()
             else:
                     d = -1
-                    
+
             char.movement(d)
 
         character.add(char)           
