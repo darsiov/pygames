@@ -62,7 +62,7 @@ while True:#Ciclo para calcular las coordenadas de cada uno de los bloques del f
     if c > 15:
         break
 
-class Character(sprite.Sprite):#Objeto que contendra el fondo
+class Character(sprite.Sprite):#Objeto que contendra el personaje
 
     def __init__(self):#Función que llevará la extracción , carga y conversión del sprite
 
@@ -80,6 +80,7 @@ class Character(sprite.Sprite):#Objeto que contendra el fondo
 
         if dt > MAX_FPS:#Definición de maximo de fps
             dt = 0.33
+            
         if self.current_frame >= self.frames - 0.1:
             self.current_frame = 2 
         elif self.current_frame < 2:
@@ -91,27 +92,53 @@ class Character(sprite.Sprite):#Objeto que contendra el fondo
 
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
-    def movement(self, d):
+    def movement(self, d):#Función de movimiento del personaje, d es el indicador de la dirección
+
         direction = d
-        if direction == 0 and self.rect.centery >= 0:
-            self.rect.centery -= MOVE
-
-        elif direction == 1 and self.rect.centerx < 625:
-            self.rect.centerx += MOVE
-
-        elif direction == 2 and self.rect.centerx > -25:
+            
+        if direction == 2 and self.rect.centerx > -25:#↤ con respectivo limite
             self.rect.centerx -= MOVE
 
-        elif direction == 3 and self.rect.centery < 600:
-            self.rect.centery += MOVE
+        if direction == 1 and self.rect.centerx < 625:#↦ con respectivo limite
+            self.rect.centerx += MOVE
 
-        else:
+        if direction == 0 and self.rect.centery > -25:#↥ con respectivo limite
+            self.rect.centery -= MOVE
+    
+        if direction == 3 and self.rect.centery < 600:#↧ con respectivo limite
+            self.rect.centery += MOVE   
+
+        if self.rect.centerx < 625 and self.rect.centery > -25:#Limite para ↗
+
+            if direction == 0.5:#↗
+                self.rect.centerx += MOVE
+                self.rect.centery -= MOVE 
+
+        if self.rect.centerx > -25 and self.rect.centery > -25:#Limite para ↖
+
+            if direction == 1.5:#↖
+                self.rect.centery -= MOVE
+                self.rect.centerx -= MOVE
+
+        if self.rect.centerx > -25 and self.rect.centery < 600: 
+
+            if direction == 2.5:#↙
+                self.rect.centery += MOVE
+                self.rect.centerx -= MOVE
+        if self.rect.centerx < 625 and self.rect.centery < 600:
+
+            if direction == 3.5:#↘
+                self.rect.centery += MOVE
+                self.rect.centerx += MOVE
+
+        else:#Evita errores en la conosola
             pass
 
 
 
 def main():
-    char = Character()
+
+    char = Character()#Asignamos la clase Character al grupo individual char
     
     while True: 
         
@@ -120,20 +147,28 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-            keys = pygame.key.get_pressed()
+            keys = pygame.key.get_pressed()#funcion que detecta cuando una tecla es pulsada o se mantiene pulsada
 
-            if keys[K_w]:
+            if keys[K_w]:#↥
                 d = 0
-            elif keys[K_d]:
+                if keys[K_d]:#↗
+                    d = 0.5
+                if keys[K_a]:#↖
+                    d = 1.5
+            elif keys[K_d]:#↦
                 d = 1
-            elif keys[K_a]:
+                if keys[K_s]:#↙
+                    d = 3.5
+            elif keys[K_a]:#↤
                 d = 2
-            elif keys[K_s]:   
-                d = 3 
-            elif keys[K_ESCAPE]:
+                if keys[K_s]:#↙
+                    d = 2.5
+            elif keys[K_s]:#↧   
+                d = 3
+            elif keys[K_ESCAPE]:#Si presionas ESC podrás salir del programa, es practico para pruebass
                 pygame.quit()
                 sys.exit()
-            else:
+            else:#Asignamos d a cualquier número que no este anteriormente para evitar cualquier error en consola
                     d = -1
 
             char.movement(d)
@@ -143,7 +178,7 @@ def main():
         wall_blocks.update(dt, window)#Invocación de la función del refresco de todos los sprites
         character.update(dt, window)
         window.fill((0, 0, 0))#Pantalla en negro
-        wall_blocks.draw(window)#Refresco
+        wall_blocks.draw(window)
         character.draw(window)
         pygame.display.flip()
 
