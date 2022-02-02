@@ -9,7 +9,7 @@ WIDTH_SCREEN, HEIGHT_SCREEN = 800, 800
 SPRITE_SIZE = 200 
 MAX_FPS = 0.36 #Maximo del tiempo de espera del clock
 SPEED_UP = 0.003
-SPEED = 0.015
+SPEED = 0.015#Velocidad de la animación de la nave
 MOVE = 25
 draw_point_w, draw_point_h =  0, 0 
 x, y = 300, 600
@@ -31,8 +31,8 @@ class Wall(sprite.Sprite):#Objeto que contendra el fondo
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((0,0 ,width_sprite, height_sprite)),(0, 0)) #Transformación del png y definición de las medidas del sprite y del punto de coordenadas para dibujar el sprite
         self.rect = self.image.get_rect()#Necesario para mostrar la imagen
         self.rect.center = (draw_point_w, draw_point_h)#Definición de las coordenadas del sprite
-        self.frames = 4 #Limite de frames
-        self.current_frame = 0 #Frame actual
+        self.frames = 4 #Limite de frames del refresco del sprite
+        self.current_frame = 0 #Frame actual0
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
 
@@ -71,7 +71,7 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((0,0 ,width_sprite, height_sprite)),(0, 0)) #Transformación del png y definición de las medidas del sprite y del punto de coordenadas para dibujar el sprite
         self.rect = self.image.get_rect()#Necesario para mostrar la imagen
         self.rect.center = (x, y)#Definición de las coordenadas del sprite
-        self.frames = 4 #Limite de frames
+        self.frames = 4 #Limite de frames del refresco del sprite
         self.current_frame = 0 #Frame actual
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
@@ -120,12 +120,12 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
                 self.rect.centery -= MOVE
                 self.rect.centerx -= MOVE
 
-        if self.rect.centerx > -25 and self.rect.centery < 600: 
+        if self.rect.centerx > -25 and self.rect.centery < 600:#Limite para ↙ 
 
             if direction == 2.5:#↙
                 self.rect.centery += MOVE
                 self.rect.centerx -= MOVE
-        if self.rect.centerx < 625 and self.rect.centery < 600:
+        if self.rect.centerx < 625 and self.rect.centery < 600:#Limite para ↘
 
             if direction == 3.5:#↘
                 self.rect.centery += MOVE
@@ -140,7 +140,7 @@ def main():
 
     char = Character()#Asignamos la clase Character al grupo individual char
     
-    while True: 
+    while True:#Ciclo temporal de juego 
         
         for event in pygame.event.get():#Ciclo para detectar cualquier evento hecho por el usuario
             if event.type == pygame.QUIT:
