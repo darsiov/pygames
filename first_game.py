@@ -3,6 +3,7 @@ from pygame.locals import * #Gestion de eventos
 
 import pygame
 import sys
+import random
 
 '''Todo lo que sea area, ancho o alto o coordenadas, tiene como medida el pixel'''
 WIDTH_SCREEN, HEIGHT_SCREEN = 800, 800 
