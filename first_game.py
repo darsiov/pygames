@@ -9,8 +9,8 @@ import random
 WIDTH_SCREEN, HEIGHT_SCREEN = 800, 800 
 SPRITE_SIZE = 200 
 MAX_FPS = 0.36 #Maximo del tiempo de espera del clock
-SPEED_UP = 0.003
-SPEED = 0.015#Velocidad de la animación de la nave
+SPEED_UP = 0.05
+SPEED = 0.1#Velocidad de la animación de la nave
 MOVE = 25
 draw_point_w, draw_point_h =  0, 0 
 x, y = 300, 600
@@ -20,8 +20,8 @@ c = 0
 character = pygame.sprite.GroupSingle()#Grupo individual del sprite del personaje
 wall_blocks = pygame.sprite.Group()#Grupo de sprites del fondo
 window = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN)) #Creación de la ventana que mostrara nuestro juego
+pygame.display.set_caption(u'first game py')
 clock = pygame.time.Clock() #Definición del reloj interno del juego
-dt = clock.tick(30) /100 #Definición de los FPS del surface
 
 class Wall(sprite.Sprite):#Objeto que contendra el fondo
 
@@ -37,14 +37,12 @@ class Wall(sprite.Sprite):#Objeto que contendra el fondo
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
 
-    def update(self, dt, window):#Funcion del refresco del sprite
+    def update(self, window):#Funcion del refresco del sprite
 
-        if dt >= MAX_FPS:#Definición de maximo de fps
-            dt = 0.33
         if self.current_frame >= self.frames - 0.1:
             self.current_frame = 0 
         else:
-            self.current_frame += 0.01
+            self.current_frame += 0.09
  
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
@@ -77,11 +75,8 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
 
-    def update(self, dt, window):#Funcion del refresco del sprite
-
-        if dt > MAX_FPS:#Definición de maximo de fps
-            dt = 0.33
-            
+    def update(self, window):#Funcion del refresco del sprite
+    
         if self.current_frame >= self.frames - 0.1:
             self.current_frame = 2 
         elif self.current_frame < 2:
@@ -142,7 +137,7 @@ def main():
     char = Character()#Asignamos la clase Character al grupo individual char
     
     while True:#Ciclo temporal de juego 
-        
+        clock.tick(31)
         for event in pygame.event.get():#Ciclo para detectar cualquier evento hecho por el usuario
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -176,13 +171,13 @@ def main():
 
         character.add(char)           
         wall_blocks.add(wallpaper)#Agregado de la lista al grupo de sprite
-        wall_blocks.update(dt, window)#Invocación de la función del refresco de todos los sprites
-        character.update(dt, window)
+        wall_blocks.update(window)#Invocación de la función del refresco de todos los sprites
+        character.update(window)
         window.fill((0, 0, 0))#Pantalla en negro
         wall_blocks.draw(window)
         character.draw(window)
         pygame.display.flip()
-
+        print(clock.get_fps())
 
                 
 
