@@ -11,7 +11,8 @@ SPRITE_SIZE = 200
 MAX_FPS = 0.36 #Maximo del tiempo de espera del clock
 SPEED_UP = 0.05
 SPEED = 0.1#Velocidad de la animación de la nave
-MOVE = 25
+MOVE = 10
+FPS = 60
 draw_point_w, draw_point_h =  0, 0 
 x, y = 300, 600
 width_sprite, height_sprite = 256, 64 #Tamaño del png completo
@@ -100,8 +101,8 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
 
                 if self.rect.centerx > -25 and self.rect.centery < 600:#Limite para ↙ 
 
-                    self.rect.centery += MOVE
-                    self.rect.centerx -= MOVE
+                    self.rect.centery += MOVE/2
+                    self.rect.centerx -= MOVE/2
             
         if keys[K_d] and self.rect.centerx < 625:#↦ con respectivo limite
 
@@ -110,8 +111,8 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
             if keys[K_s]:#↙
                 if self.rect.centerx < 625 and self.rect.centery < 600:#Limite para ↘
 
-                    self.rect.centery += MOVE
-                    self.rect.centerx += MOVE
+                    self.rect.centery += MOVE/2
+                    self.rect.centerx += MOVE/2
                 
         if keys[K_w] and self.rect.centery > -25:#↥ con respectivo limite
 
@@ -119,12 +120,12 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
 
             if keys[K_d]:#↗
                 if self.rect.centerx < 625 and self.rect.centery > -25:#Limite para ↗
-                    self.rect.centerx += MOVE
-                    self.rect.centery -= MOVE
+                    self.rect.centerx += MOVE/2
+                    self.rect.centery -= MOVE/2
             if keys[K_a]:#↖
                 if self.rect.centerx > -25 and self.rect.centery > -25:#Limite para ↖
-                    self.rect.centery -= MOVE
-                    self.rect.centerx -= MOVE
+                    self.rect.centery -= MOVE/2
+                    self.rect.centerx -= MOVE/2
     
         if keys[K_s] and self.rect.centery < 600:#↧ con respectivo limite
             self.rect.centery += MOVE   
@@ -139,7 +140,7 @@ def main():
     char = Character()#Asignamos la clase Character al grupo individual char
     
     while True:#Ciclo temporal de juego 
-        clock.tick(31)
+        clock.tick(FPS)
         for event in pygame.event.get():#Ciclo para detectar cualquier evento hecho por el usuario
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -159,7 +160,6 @@ def main():
         wall_blocks.draw(window)
         character.draw(window)
         pygame.display.flip()
-        print(clock.get_fps())
 
                 
 
