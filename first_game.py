@@ -14,9 +14,11 @@ MOVE = 10
 FPS = 60
 draw_point_w, draw_point_h =  0, 0 
 x, y = 300, 600
-random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
+random_limit = random.randint(1,5)
+ax, ay = 0, 0
 width_sprite, height_sprite = 256, 64 #Tamaño del png completo
-wallpaper = []  #Lista para acumular las coordenadas de los bloques del fondo  
+wallpaper = []  #Lista para acumular las coordenadas de los bloques del fondo 
+r_asteroid = [] #Lista para acumular los  asteroides aleatorios
 c = 0
 random.seed()
 character = pygame.sprite.GroupSingle()#Grupo individual del sprite del personaje
@@ -49,6 +51,7 @@ class Wall(sprite.Sprite):#Objeto que contendra el fondo
  
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
+
 while True:#Ciclo para calcular las coordenadas de cada uno de los bloques del fondo
 
     if draw_point_w < 600 and draw_point_h <= 600:
@@ -63,6 +66,7 @@ while True:#Ciclo para calcular las coordenadas de cada uno de los bloques del f
     c += 1
     if c > 15:
         break
+
 
 class Character(sprite.Sprite):#Objeto que contendra el personaje
 
@@ -135,15 +139,15 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
         else:#Evita errores en la conosola
             pass
 
+
 class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
 
     def __init__(self):#Función que llevará la extracción , carga y conversión del sprite
-
         sprite.Sprite.__init__(self)
         self.spriteSheet = pygame.image.load('sprites/Asteroide.png').convert_alpha()#Cargado del sprite transparente
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((0,0 ,width_sprite, height_sprite)),(0, 0)) #Transformación del png y definición de las medidas del sprite y del punto de coordenadas para dibujar el sprite
         self.rect = self.image.get_rect()#Necesario para mostrar la imagen
-        self.rect.center = (-SPRITE_SIZE + 50, random_point)#Definición de las coordenadas del sprite
+        self.rect.center = (ax, ay)#Definición de las coordenadas del sprite
         self.frames = 4 #Limite de frames del refresco del sprite
         self.current_frame = 0 #Frame actual
         self.frame_width = 64   #Ancho del frame
@@ -162,11 +166,30 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
+
+c = 0
+while True:
+    random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
+    if c >= random_limit:
+        ax = -SPRITE_SIZE + 50
+        ay = random_point
+        r_asteroid.append(Asteroide())
+        c += 1
+    elif c < random_limit:
+        ax = random_point
+        ay = -SPRITE_SIZE + 50
+        r_asteroid.append(Asteroide())
+        c += 1
+    if c >= random_limit*2:
+        break
+
+   
 def main():
 
     char = Character()#Asignamos la clase Character al grupo individual char
-    ast = Asteroide()
-
+    character.add(char)         
+    wall_blocks.add(wallpaper)#Agregado de la lista al grupo de sprite
+    asteroid.add(r_asteroid)
     while True:#Ciclo temporal de juego 
 
         clock.tick(FPS)
@@ -179,13 +202,8 @@ def main():
             if keys[K_ESCAPE]:#Si presionas ESC podrás salir del programa, es practico para pruebass
                 pygame.quit()
                 sys.exit()
-            else:#Evita errores
-                pass
 
         char.movement()#Movimiento del personaje
-        character.add(char)
-        asteroid.add(ast)           
-        wall_blocks.add(wallpaper)#Agregado de la lista al grupo de sprite
         wall_blocks.update(window)#Invocación de la función del refresco de todos los sprites
         character.update(window)
         asteroid.update(window)
