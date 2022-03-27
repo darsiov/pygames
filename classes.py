@@ -1,3 +1,4 @@
+from traceback import print_tb
 from pygame import sprite   #Archivo especifico para animar los sprites
 from pygame.locals import * #Gestion de eventos
 
@@ -91,7 +92,7 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
         else:
             pass
 
-        self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(150,150)) #Escala del sprite en el juego
+        self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
     def movement(self):#Función de movimiento del personaje, d es el indicador de la dirección
 
@@ -151,12 +152,14 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
         self.segundos = 0
+        self.c = 0
 
     
     def update(self, window):#Funcion del refresco del sprite
 
         global r_asteroid
         self.segundos += 0.06
+        random_limit1 = random.randint(0,1)
 
         if self.current_frame >= self.frames - 0.1:
             self.current_frame = 2 
@@ -169,27 +172,38 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
-        self.rect.centerx += 8
-        self.rect.centery += 8
+        self.rect.x += 8
+        self.rect.y += 8
 
-        if self.segundos >= 7.5 and self.segundos <= 8:
-            random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
+        if self.segundos == 7.55999999999998:
+            while True:
+                random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
+                if self.c >= random_limit1:
 
+                    self.rect.x = random_point
+                    self.rect.y = -SPRITE_SIZE + 50
+                    r_asteroid.append(Asteroide())
+                    self.c += 1
+
+                elif self.c < random_limit1:
+
+                    self.rect.x = -SPRITE_SIZE + 50
+                    self.rect.y = random_point
+                    r_asteroid.append(Asteroide())
+                    self.c += 1
+
+                if self.c >= random_limit1*2:
+
+                    break
+
+                else:
+                    break
+                    
             r_asteroid = []
+            asteroid.remove()
             asteroid.empty()
-
-            self.rect.x = random_point
-            self.rect.y = -SPRITE_SIZE + 50
-            r_asteroid.append(Asteroide())
-
-            # self.rect.x = -SPRITE_SIZE + 50
-            # self.rect.y = random_point
-            # r_asteroid.append(Asteroide())
-
+            self.c = 0
             self.segundos = 0
-            
-            r_asteroid = []
-            asteroid.empty()
 
         # if self.segundos >= 7.5 and self.segundos <= 8:
         #     print(asteroid)
@@ -210,15 +224,16 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
 c = 0
 while True:
     random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
-    if c >= random_limit:
+    if c <= random_limit:
         ax = -SPRITE_SIZE + 50
         ay = random_point
         r_asteroid.append(Asteroide())
         c += 1
-    elif c < random_limit:
+    elif c > random_limit:
         ax = random_point
         ay = -SPRITE_SIZE + 50
         r_asteroid.append(Asteroide())
         c += 1
+        print(c)
     if c >= random_limit*2:
         break
