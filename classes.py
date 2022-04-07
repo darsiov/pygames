@@ -1,4 +1,3 @@
-from traceback import print_tb
 from pygame import sprite   #Archivo especifico para animar los sprites
 from pygame.locals import * #Gestion de eventos
 
@@ -9,8 +8,8 @@ import random
 '''Todo lo que sea area, ancho o alto o coordenadas, tiene como medida el pixel'''
 WIDTH_SCREEN, HEIGHT_SCREEN = 800, 800 
 SPRITE_SIZE = 200 
-SPEED_UP = 0.05
-SPEED = 0.1#Velocidad de la animación de la nave
+SPEED_UP = 0.05 #Velocidad de la animación de la aceleración de la nave
+SPEED = 0.1 #Velocidad de la animación de la nave
 MOVE = 10
 FPS = 60
 draw_point_w, draw_point_h =  0, 0 
@@ -172,10 +171,10 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
 
-        self.rect.x += 8
-        self.rect.y += 8
+        self.rect.x += MOVE 
+        self.rect.y += MOVE  
 
-        if self.segundos == 7.55999999999998:
+        if self.segundos >= 6:
             while True:
                 random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
                 if self.c >= random_limit1:
@@ -205,21 +204,6 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
             self.c = 0
             self.segundos = 0
 
-        # if self.segundos >= 7.5 and self.segundos <= 8:
-        #     print(asteroid)
-        #     random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
-
-        #     r_asteroid = []
-        #     asteroid.empty()
-
-        #     self.rect.x = -SPRITE_SIZE + 50
-        #     self.rect.y = random_point
-        #     r_asteroid.append(Asteroide())
-        #     self.segundos = 0
-
-        #     r_asteroid = []
-        #     asteroid.empty()
-
 
 c = 0
 while True:
@@ -234,6 +218,5 @@ while True:
         ay = -SPRITE_SIZE + 50
         r_asteroid.append(Asteroide())
         c += 1
-        print(c)
     if c >= random_limit*2:
         break
