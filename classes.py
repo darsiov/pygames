@@ -14,7 +14,7 @@ MOVE = 10
 FPS = 60
 draw_point_w, draw_point_h =  0, 0 
 x, y = 300, 600
-random.seed()
+semilla = random.seed()
 random_limit = random.randint(1,3)
 width_sprite, height_sprite = 256, 64 #Tamaño del png completo
 wallpaper = []  #Lista para acumular las coordenadas de los bloques del fondo 
@@ -158,6 +158,7 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
 
         global r_asteroid
         self.segundos += 0.06
+        semilla
         random_limit1 = random.randint(0,1)
 
         if self.current_frame >= self.frames - 0.1:
@@ -176,6 +177,7 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
 
         if self.segundos >= 6:
             while True:
+                semilla
                 random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
                 if self.c >= random_limit1:
 
@@ -207,6 +209,7 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
 
 c = 0
 while True:
+    semilla
     random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
     if c <= random_limit:
         ax = -SPRITE_SIZE + 50
