@@ -170,10 +170,10 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         else:
             pass
         
-        self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
+        self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE - 5,SPRITE_SIZE - 5)) #Escala del sprite en el juego
 
-        self.rect.x += MOVE 
-        self.rect.y += MOVE  
+        self.rect.x += MOVE + 2
+        self.rect.y += MOVE + 2  
 
         if self.segundos >= 6:
             while True:
