@@ -11,10 +11,10 @@ def main():
     wall_blocks.add(wallpaper)#Agregado de la lista al grupo de sprite
     asteroid.add(r_asteroid)
     
-    while True:#Ciclo temporal de juego 
+    while char.alive():#Ciclo de juego 
 
         clock.tick(FPS)
-    
+        
         for event in pygame.event.get():#Ciclo para detectar cualquier evento hecho por el usuario
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -33,6 +33,10 @@ def main():
         character.draw(window)
         asteroid.draw(window)
         pygame.display.flip()
+        for i in r_asteroid:
+            collision = pygame.sprite.collide_mask(char,i)
+            if collision != None:
+                char.kill()
 
                 
 

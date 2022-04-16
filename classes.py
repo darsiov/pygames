@@ -16,11 +16,12 @@ draw_point_w, draw_point_h =  0, 0
 x, y = 300, 600
 semilla = random.seed()
 random_limit = random.randint(1,3)
+random_limit1 = random.randint(1,2)
 width_sprite, height_sprite = 256, 64 #Tamaño del png completo
 wallpaper = []  #Lista para acumular las coordenadas de los bloques del fondo 
 r_asteroid = [] #Lista para acumular los  asteroides aleatorios
 c = 0
-character = pygame.sprite.GroupSingle()#Grupo individual del sprite del personaje
+character = pygame.sprite.GroupSingle()#Grupo del sprite del personaje
 asteroid = pygame.sprite.Group()
 wall_blocks = pygame.sprite.Group()#Grupo de sprites del fondo
 window = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN)) #Creación de la ventana que mostrara nuestro juego
@@ -66,11 +67,11 @@ while True:#Ciclo para calcular las coordenadas de cada uno de los bloques del f
         break
 
 
-class Character(sprite.Sprite):#Objeto que contendra el personaje
+class Character(pygame.sprite.Sprite):#Objeto que contendra el personaje
 
     def __init__(self):#Función que llevará la extracción , carga y conversión del sprite
 
-        sprite.Sprite.__init__(self)
+        pygame.sprite.Sprite.__init__(self)
         self.spriteSheet = pygame.image.load('sprites/nave.png').convert_alpha()#Cargado del sprite transparente
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((0,0 ,width_sprite, height_sprite)),(0, 0)) #Transformación del png y definición de las medidas del sprite y del punto de coordenadas para dibujar el sprite
         self.rect = self.image.get_rect()#Necesario para mostrar la imagen
@@ -79,6 +80,7 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
         self.current_frame = 0 #Frame actual
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
+        sprite.mask = pygame.mask.from_surface(self.image)
 
     def update(self, window):#Funcion del refresco del sprite
     
@@ -92,6 +94,8 @@ class Character(sprite.Sprite):#Objeto que contendra el personaje
             pass
 
         self.image = pygame.transform.scale(self.spriteSheet.subsurface((int(self.current_frame)*self.frame_width,0,self.frame_width,self.frame_heigth)),(SPRITE_SIZE,SPRITE_SIZE)) #Escala del sprite en el juego
+
+        
 
     def movement(self):#Función de movimiento del personaje, d es el indicador de la dirección
 
@@ -150,16 +154,16 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         self.current_frame = 0 #Frame actual
         self.frame_width = 64   #Ancho del frame
         self.frame_heigth = 64  #Alto del frame
+        sprite.mask = pygame.mask.from_surface(self.image)
         self.segundos = 0
         self.c = 0
 
     
     def update(self, window):#Funcion del refresco del sprite
 
-        global r_asteroid
-        self.segundos += 0.06
+        global r_asteroid, random_limit1
+        self.segundos += FPS / 1000
         semilla
-        random_limit1 = random.randint(0,1)
 
         if self.current_frame >= self.frames - 0.1:
             self.current_frame = 2 
@@ -175,31 +179,35 @@ class Asteroide(sprite.Sprite):#Objeto que contendra el personaje
         self.rect.x += MOVE + 2
         self.rect.y += MOVE + 2  
 
-        if self.segundos >= 6:
+        if self.segundos >= 5:
+
+            r_asteroid = []
+            asteroid.remove()
+            asteroid.empty()
+
             while True:
                 semilla
                 random_point = random.randint(-SPRITE_SIZE + 50, WIDTH_SCREEN - SPRITE_SIZE)
-                if self.c >= random_limit1:
-
-                    self.rect.x = random_point
-                    self.rect.y = -SPRITE_SIZE + 50
-                    r_asteroid.append(Asteroide())
-                    self.c += 1
-
-                elif self.c < random_limit1:
+                if self.c <= random_limit1:
 
                     self.rect.x = -SPRITE_SIZE + 50
                     self.rect.y = random_point
                     r_asteroid.append(Asteroide())
                     self.c += 1
 
+                elif self.c > random_limit1:
+
+                    self.rect.x = random_point
+                    self.rect.y = -SPRITE_SIZE + 50
+                    r_asteroid.append(Asteroide())
+                    self.c += 1
+
+
                 if self.c >= random_limit1*2:
 
+                    random_limit1 = random.randint(1,2)
                     break
-
-                else:
-                    break
-                    
+        
             r_asteroid = []
             asteroid.remove()
             asteroid.empty()
